@@ -44,8 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
           for (const file of files) {
             const tempDoc = await app.open(file);
             
-            // Explicitly set the canvas size to match the target document
-            await tempDoc.resizeCanvas(targetDoc.width, targetDoc.height);
+            // Resize the image to fit the target document's dimensions
+            await tempDoc.resizeImage(targetDoc.width, targetDoc.height);
             
             console.log(`Temporary document width set to: ${tempDoc.width}`);
             console.log(`Temporary document height set to: ${tempDoc.height}`);
