@@ -45,37 +45,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     btnRandomize.addEventListener('click', async () => {
-        const app = require('photoshop').app;
-        const core = require('photoshop').core;
-        
-        await core.executeAsModal(async () => {
-            const doc = app.activeDocument;
-            const layers = doc.layers;
+        try {
+            const app = require('photoshop').app;
+            const core = require('photoshop').core;
+            
+            await core.executeAsModal(async () => {
+                const doc = app.activeDocument;
+                const layers = doc.layers;
 
-            for (const layer of layers) {
-                if (layer.locked) continue;
+                console.log(`Starting to randomize layers in document: ${doc.name}`);
 
-                if (chkBlendModes.checked) {
-                    layer.blendMode = blendModes[Math.floor(Math.random() * blendModes.length)];
+                for (const layer of layers) {
+                    if (layer.locked || layer.kind === 'artboard') continue;
+
+                    console.log(`Processing layer: ${layer.name}`);
+                    console.log(`Current blend mode: ${layer.blendMode}`);
+
+                    if (chkBlendModes.checked) {
+                        const randomBlendMode = blendModes[Math.floor(Math.random() * blendModes.length)];
+                        layer.blendMode = randomBlendMode;
+                        console.log(`Layer blend mode set to: ${randomBlendMode}`);
+                    }
+
+                    if (chkRotation.checked) {
+                        const randomRotation = Math.random() * 360;
+                        layer.rotate(randomRotation);
+                        console.log(`Layer rotated by: ${randomRotation}`);
+                    }
+
+                    if (chkScale.checked) {
+                        const scale = 20 + Math.random() * 180;
+                        layer.scale(scale, scale);
+                        console.log(`Layer scaled by: ${scale}%`);
+                    }
                 }
 
-                if (chkRotation.checked) {
-                    layer.rotate(Math.random() * 360);
-                }
-
-                if (chkScale.checked) {
-                    const scale = 20 + Math.random() * 180;
-                    layer.scale(scale, scale);
-                }
-
-                if (chkPosition.checked) {
-                    const bounds = doc.bounds;
-                    const layerBounds = layer.bounds;
-                    const x = Math.random() * (bounds.width - layerBounds.width/2);
-                    const y = Math.random() * (bounds.height - layerBounds.height/2);
-                    layer.translate(x, y);
-                }
-            }
-        }, { commandName: 'Randomize Layers' });
+                console.log('Layer randomization completed successfully.');
+            }, { commandName: 'Randomize Layers' });
+        } catch (err) {
+            console.error('Error randomizing layers:', err);
+        }
     });
 });
