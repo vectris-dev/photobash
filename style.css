@@ -1,0 +1,33 @@
+body {
+    padding: 12px;
+    margin: 0;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+.randomize-section {
+    border: 1px solid var(--uxp-host-border-color);
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.layer-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+}
+
+sp-button {
+    width: 100%;
+    margin: 8px 0;
+}

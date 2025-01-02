@@ -1,0 +1,50 @@
+{
+  "id": "photobasher",
+  "name": "Photobasher",
+  "version": "1.0.0",
+  "main": "index.html",
+  "host": {
+    "app": "PS",
+    "minVersion": "25.1.0"
+  },
+  "manifestVersion": 5,
+  "entrypoints": [
+    {
+      "type": "panel",
+      "id": "photobasher",
+      "label": "Photobasher",
+      "minimumSize": {
+        "width": 230,
+        "height": 200
+      },
+      "maximumSize": {
+        "width": 2000,
+        "height": 2000
+      },
+      "preferredDockedSize": {
+        "width": 230,
+        "height": 300
+      },
+      "icons": [
+        {
+          "width": 23,
+          "height": 23,
+          "path": "icons/dark.png",
+          "scale": [1, 2],
+          "theme": ["dark", "darkest"]
+        },
+        {
+          "width": 23,
+          "height": 23,
+          "path": "icons/light.png",
+          "scale": [1, 2],
+          "theme": ["light", "lightest"]
+        }
+      ]
+    }
+  ],
+  "requiredPermissions": {
+    "allowCodeGenerationFromStrings": true,
+    "localFileSystem": "fullAccess"
+  }
+}
