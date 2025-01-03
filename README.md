@@ -1,6 +1,6 @@
 # photobash
 
-A Photoshop plugin that helps you quickly import and randomize multiple images for creative compositing.
+A Photoshop plugin that helps you quickly import and randomize multiple images as layers.
 
 ## Features
 
@@ -8,7 +8,7 @@ A Photoshop plugin that helps you quickly import and randomize multiple images f
 - Randomize layer properties:
   - Blend modes
   - Rotation
-  - Scale (20% - 200%)
+  - Scale
   - Position
 
 Locked layers are preserved and won't be affected by randomization.
