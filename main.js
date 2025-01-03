@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const chkRotation = document.getElementById("chkRotation");
   const chkScale = document.getElementById("chkScale");
   const chkPosition = document.getElementById("chkPosition");
+  const chkReorder = document.getElementById("chkReorder");
 
   const blendModes = [
     "normal",
@@ -44,10 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
               console.log(`Attempting to open file: ${file.name}`); // Log the filename before attempting to open
               const tempDoc = await app.open(file);
-              
+
               // Resize the image to fit the target document's dimensions
               await tempDoc.resizeImage(targetDoc.width, targetDoc.height);
-              
+
               console.log(`Temporary document width set to: ${tempDoc.width}`);
               console.log(`Temporary document height set to: ${tempDoc.height}`);
               await tempDoc.activeLayers[0].duplicate(targetDoc);
@@ -69,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const app = require("photoshop").app;
       const core = require("photoshop").core;
+      const constants = require("photoshop").constants;
 
       await core.executeAsModal(
         async () => {
@@ -102,6 +104,38 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           }
 
+          if (chkReorder.checked) {
+            // Helper function to shuffle an array using Fisher-Yates
+            function shuffle(array) {
+              let currentIndex = array.length,  randomIndex;
+              while (currentIndex !== 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                // Swap
+                [array[currentIndex], array[randomIndex]] = [
+                  array[randomIndex],
+                  array[currentIndex],
+                ];
+              }
+              return array;
+            }
+          
+            // Collect all non-background layers
+            const nonBackgroundLayers = layers.filter((l) => !l.isBackgroundLayer);
+          
+            // Shuffle them
+            shuffle(nonBackgroundLayers);
+          
+            // Move each shuffled layer to the top of the stack (just above the topmost layer)
+            // so that the final order in 'layers' matches the shuffled order.
+            nonBackgroundLayers.forEach((layer) => {
+              // Move layer above the topmost layer in the document
+              layer.moveAbove(doc.layers[0]);
+            });
+          
+            console.log("Layers reordered (excluding background layer).");
+          }
+          
           console.log("Layer randomization completed successfully.");
         },
         { commandName: "Randomize Layers" }
