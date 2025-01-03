@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const files = await fs.getFileForOpening({
         allowMultiple: true,
-        types: ["jpg", "jpeg", "png", "webp"],
       });
 
       if (!files || files.length === 0) return;
@@ -42,16 +41,21 @@ document.addEventListener("DOMContentLoaded", () => {
         async () => {
           const targetDoc = app.activeDocument;
           for (const file of files) {
-            const tempDoc = await app.open(file);
-            
-            // Resize the image to fit the target document's dimensions
-            await tempDoc.resizeImage(targetDoc.width, targetDoc.height);
-            
-            console.log(`Temporary document width set to: ${tempDoc.width}`);
-            console.log(`Temporary document height set to: ${tempDoc.height}`);
-            await tempDoc.activeLayers[0].duplicate(targetDoc);
+            try {
+              console.log(`Attempting to open file: ${file.name}`); // Log the filename before attempting to open
+              const tempDoc = await app.open(file);
+              
+              // Resize the image to fit the target document's dimensions
+              await tempDoc.resizeImage(targetDoc.width, targetDoc.height);
+              
+              console.log(`Temporary document width set to: ${tempDoc.width}`);
+              console.log(`Temporary document height set to: ${tempDoc.height}`);
+              await tempDoc.activeLayers[0].duplicate(targetDoc);
 
-            await tempDoc.closeWithoutSaving();
+              await tempDoc.closeWithoutSaving();
+            } catch (innerErr) {
+              console.error(`Error processing file: ${file.fullName}, Error: ${innerErr}`);
+            }
           }
         },
         { commandName: "Import Images as Layers" }

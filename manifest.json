@@ -1,6 +1,6 @@
 {
-  "id": "photobasher",
-  "name": "Photobasher",
+  "id": "photobash",
+  "name": "Photobash",
   "version": "1.0.0",
   "main": "index.html",
   "host": {
@@ -11,8 +11,8 @@
   "entrypoints": [
     {
       "type": "panel",
-      "id": "photobasher",
-      "label": "Photobasher",
+      "id": "photobash",
+      "label": "Photobash",
       "minimumSize": {
         "width": 230,
         "height": 500

@@ -1,4 +1,4 @@
-# Photobasher
+# photobash
 
 A Photoshop plugin that helps you quickly import and randomize multiple images for creative compositing.
 
@@ -23,7 +23,7 @@ Locked layers are preserved and won't be affected by randomization.
 
 1. Download the plugin
 2. Extract to your Photoshop plugins folder
-3. Enable the plugin in Photoshop via Plugins > Photobasher
+3. Enable the plugin in Photoshop via Plugins > photobash
 
 ## Development
 
